@@ -63,8 +63,8 @@ def main():
   e = Vertice("e")
 
   V = (a, b, c, d, e) # Vértices
-  E = ((a, b), (a, c), (c, d), (c, e))  #Arestas
-  G = (V, E) #Grafo
+  E = ((a, b), (a, c), (c, d), (c, e))  # Arestas
+  G = (V, E) # Grafo
 
   arvore = BFS(G, a) # Chama a função
 
