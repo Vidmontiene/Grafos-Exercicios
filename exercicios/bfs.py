@@ -1,6 +1,9 @@
 """
-Implementação do algoritmo de busca em largura (BFS), que encontra o menor caminho entre dois vértices de um grafo, além de retornar uma árvore para melhor visualização
+Implementação do algoritmo de busca em largura (BFS), que encontra o menor caminho entre dois vértices de um grafo ordenado, além de retornar uma árvore para melhor visualização
 """
+
+import networkx as nx
+import matplotlib.pyplot as plt
 
 # Define um vértice
 class Vertice:
@@ -25,10 +28,6 @@ Vértice pai: {pai}
 Distância da raiz: {self.d}
 Cor: {self.cor}"""
 
-# Indica se dois vértices formam uma aresta em um grafo
-def isAresta(G, v1, v2):
-  return ((v1, v2) in G[1] or (v2, v1) in G[1])
-
 # Busca em Largura, retorna o grafo da árvore
 def BFS (G, s):
 
@@ -42,9 +41,9 @@ def BFS (G, s):
   arvore = ([s], [])
 
   while fila != []:
-    u = fila.pop()
+    u = fila.pop(0)
     for v in vertices:
-      if isAresta(G, v, u) and v.cor == "white":
+      if (u, v) in G[1] and v.cor == "white":
         fila.append(v)
         arvore[0].append(v)
         arvore[1].append((u, v))
@@ -79,6 +78,23 @@ def main():
   print("Arestas da árvore:")
   print([(u.nome, v.nome) for (u,v) in arvore[1]])
   print("--------------------------------")
+
+  # Usa networkx e matplotlib para mostrar a árvore
+  G_arvore = nx.DiGraph()
+  G_arvore.add_edges_from(
+    [(u.nome, v.nome) for (u, v) in arvore[1]]
+  )
+  pos = nx.spring_layout(G_arvore)
+
+  nx.draw(
+    G_arvore,
+    pos,
+    with_labels=True,
+    node_size=2000,
+    node_color="lightgreen",
+    arrows=True
+  )
+  plt.show()
 
 if __name__ == '__main__':
   main()
