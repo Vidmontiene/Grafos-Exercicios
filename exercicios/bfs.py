@@ -29,7 +29,7 @@ Distância da raiz: {self.d}
 Cor: {self.cor}"""
 
 # Busca em Largura, retorna o grafo da árvore
-def BFS (G, s):
+def BFS (G, s, adj):
 
   # Define as configurações do primeiro vértice
   s.cor = "gray"
@@ -42,8 +42,8 @@ def BFS (G, s):
 
   while fila != []:
     u = fila.pop(0)
-    for v in vertices:
-      if (u, v) in G[1] and v.cor == "white":
+    for v in adj[u]:
+      if v.cor == "white":
         fila.append(v)
         arvore[0].append(v)
         arvore[1].append((u, v))
@@ -65,7 +65,15 @@ def main():
   E = ((a, b), (a, c), (c, d), (c, e))  # Arestas
   G = (V, E) # Grafo
 
-  arvore = BFS(G, a) # Chama a função
+  adj = {
+    a: [b, c],
+    b: [],
+    c: [d, e],
+    d: [],
+    e: []
+  }
+
+  arvore = BFS(G, a, adj) # Chama a função
 
   # Printa as informações dos vertices
   for vertice in G[0]:
