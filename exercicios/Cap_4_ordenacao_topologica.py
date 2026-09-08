@@ -2,7 +2,7 @@
 Algoritmo de ordenação topológica. Deve ser utilizado num grafo acícilico e direcionado. Ordena todos os vértices tal que se (u, v) é uma aresta, então u aparece antes de v na ordenação.
 """
 
-from dfs import Vertice, mostraGrafo, florestaDeProfundidade
+from Cap_3_dfs import Vertice, mostraGrafo, florestaDeProfundidade
 import matplotlib.pyplot as plt
 
 def DFS(G, adj):

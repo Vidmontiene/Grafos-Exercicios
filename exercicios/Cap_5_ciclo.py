@@ -2,7 +2,7 @@
 Usa DFS para detectar ciclos em um grafo não direcionado.
 """
 
-from dfs import Vertice
+from Cap_3_dfs import Vertice
 import networkx as nx
 import matplotlib.pyplot as plt
 
