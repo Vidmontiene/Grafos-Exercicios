@@ -83,6 +83,12 @@ def AGM_Kruskal(G, w):
 
   return A, peso
 
+# Pega o peso de uma aresta. Essa função não é necessária no pseudocódigo
+def peso_aresta(u, v, w):
+  if (u, v) in w:
+    return w[(u, v)]
+  return w[(v, u)]
+
 # Mostra grafo e os pesos
 def mostraGrafoNaoDirecionadoPeso(G, nome, w):
 
@@ -109,7 +115,7 @@ def mostraGrafoNaoDirecionadoPeso(G, nome, w):
 
   # Pesos das arestas
   labels = {
-    (u.nome, v.nome): w[(u, v)]
+    (u.nome, v.nome): peso_aresta(u, v, w)
     for (u, v) in G[1]
   }
 
@@ -124,7 +130,7 @@ def mostraGrafoNaoDirecionadoPeso(G, nome, w):
 def main():
   a = Vertice('a')
   b = Vertice('b')
-  c = Vertice ('c')
+  c = Vertice('c')
   d = Vertice('d')
   e = Vertice('e')
   f = Vertice('f')

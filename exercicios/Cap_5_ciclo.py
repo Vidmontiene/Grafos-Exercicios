@@ -38,7 +38,7 @@ def mostraGrafoNaoDirecionado(G, nome):
     [(u.nome, v.nome) for (u, v) in G[1]]
   )
 
-  pos = nx.spring_layout(G_grafo, k=0.5)
+  pos = nx.kamada_kawai_layout(G_grafo)
 
   nx.draw(
     G_grafo,
