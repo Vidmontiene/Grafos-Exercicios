@@ -2,7 +2,7 @@
 Encontra quantas componentes conexas um grafo tem, bem como quais vértices pertencem a cada componente
 """
 
-from Cap_5_ciclo import mostraGrafoNaoDirecionado
+from auxiliares import mostraGrafoNaoDirecionado
 import matplotlib.pyplot as plt
 
 # Define um vértice

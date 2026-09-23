@@ -6,7 +6,7 @@ Uma árvore geradora de um grafo G contém todos os vértices de G e um subconju
 Para essa árvore ser mínima, ela deve ainda ter a menor soma possível dos pesos de suas arestas.
 """
 
-from Cap_6_kruskal import mostraGrafoNaoDirecionadoPeso
+from auxiliares import mostraGrafoNaoDirecionadoPeso
 import matplotlib.pyplot as plt
 
 # Define um vértice

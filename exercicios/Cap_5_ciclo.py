@@ -3,7 +3,7 @@ Usa DFS para detectar ciclos em um grafo não direcionado.
 """
 
 from Cap_3_dfs import Vertice
-import networkx as nx
+from auxiliares import mostraGrafoNaoDirecionado
 import matplotlib.pyplot as plt
 
 def TemCiclo(G, adj):
@@ -25,30 +25,6 @@ def VisitaCiclo(G, u, adj):
   u.cor = "black"
   return False
 
-def mostraGrafoNaoDirecionado(G, nome):
-  plt.figure()
-
-  G_grafo = nx.Graph()
-
-  G_grafo.add_nodes_from(
-    [v.nome for v in G[0]]
-  )
-
-  G_grafo.add_edges_from(
-    [(u.nome, v.nome) for (u, v) in G[1]]
-  )
-
-  pos = nx.kamada_kawai_layout(G_grafo)
-
-  nx.draw(
-    G_grafo,
-    pos,
-    with_labels=True,
-    node_size=1000,
-    node_color="lightgreen"
-  )
-
-  plt.get_current_fig_manager().set_window_title(nome)
 
 def main():
   a = Vertice('a')

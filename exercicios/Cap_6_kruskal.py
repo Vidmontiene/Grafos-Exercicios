@@ -7,7 +7,7 @@ Para essa árvore ser mínima, ela deve ainda ter a menor soma possível dos pes
 """
 
 import matplotlib.pyplot as plt
-import networkx as nx
+from auxiliares import mostraGrafoNaoDirecionadoPeso
 
 # Define um vértice
 class Vertice:
@@ -88,44 +88,6 @@ def peso_aresta(u, v, w):
   if (u, v) in w:
     return w[(u, v)]
   return w[(v, u)]
-
-# Mostra grafo e os pesos
-def mostraGrafoNaoDirecionadoPeso(G, nome, w):
-
-  plt.figure()
-  G_grafo = nx.Graph()
-
-  G_grafo.add_nodes_from(
-    [v.nome for v in G[0]]
-  )
-
-  G_grafo.add_edges_from(
-    [(u.nome, v.nome) for (u, v) in G[1]]
-  )
-
-  pos = nx.kamada_kawai_layout(G_grafo)
-
-  nx.draw(
-    G_grafo,
-    pos,
-    with_labels=True,
-    node_size=1000,
-    node_color="lightgreen"
-  )
-
-  # Pesos das arestas
-  labels = {
-    (u.nome, v.nome): peso_aresta(u, v, w)
-    for (u, v) in G[1]
-  }
-
-  nx.draw_networkx_edge_labels(
-    G_grafo,
-    pos,
-    edge_labels=labels
-  )
-
-  plt.get_current_fig_manager().set_window_title(nome)
 
 def main():
   a = Vertice('a')

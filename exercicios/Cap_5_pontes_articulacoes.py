@@ -2,7 +2,7 @@
 Detecta as pontes e articulações de um grafo
 """
 
-from Cap_5_ciclo import mostraGrafoNaoDirecionado
+from auxiliares import mostraGrafoNaoDirecionado
 import matplotlib.pyplot as plt
 
 # Define um vértice

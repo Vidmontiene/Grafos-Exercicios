@@ -2,7 +2,7 @@
 Implementação do algoritmo de busca em largura (BFS), que encontra o menor caminho entre dois vértices de um grafo ordenado, além de retornar uma árvore para melhor visualização
 """
 
-import networkx as nx
+from auxiliares import mostraGrafo
 import matplotlib.pyplot as plt
 
 # Define um vértice
@@ -87,21 +87,7 @@ def main():
   print([(u.nome, v.nome) for (u,v) in arvore[1]])
   print("--------------------------------")
 
-  # Usa networkx e matplotlib para mostrar a árvore
-  G_arvore = nx.DiGraph()
-  G_arvore.add_edges_from(
-    [(u.nome, v.nome) for (u, v) in arvore[1]]
-  )
-  pos = nx.spring_layout(G_arvore)
-
-  nx.draw(
-    G_arvore,
-    pos,
-    with_labels=True,
-    node_size=2000,
-    node_color="lightgreen",
-    arrows=True
-  )
+  mostraGrafo(arvore, "Após BFS")
   plt.show()
 
 if __name__ == '__main__':

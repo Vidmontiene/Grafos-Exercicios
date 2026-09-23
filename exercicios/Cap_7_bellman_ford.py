@@ -6,10 +6,8 @@ Esse algoritmo admite arestas com pesos negativos e detecta
 a existência de ciclos de peso negativo.
 """
 
-from Cap_6_kruskal import peso_aresta
-from Cap_3_dfs import florestaDeProfundidade
 import matplotlib.pyplot as plt
-import networkx as nx
+from auxiliares import mostraGrafoDirecionadoPeso, mostraGrafoDirecionadoPesoD, peso_aresta, florestaDeProfundidade
 
 # Define um vértice
 class Vertice:
@@ -31,100 +29,6 @@ class Vertice:
     Nome do vértice: {self.nome}
     Vértice pai: {pai}
     d: {self.d}"""
-
-# Mostra grafo e os pesos
-def mostraGrafoDirecionadoPeso(G, nome, w):
-
-  plt.figure()
-  G_grafo = nx.DiGraph()
-
-  G_grafo.add_nodes_from(
-    [v.nome for v in G[0]]
-  )
-
-  G_grafo.add_edges_from(
-    [(u.nome, v.nome) for (u, v) in G[1]]
-  )
-
-  pos = nx.kamada_kawai_layout(G_grafo)
-
-  nx.draw(
-    G_grafo,
-    pos,
-    with_labels=True,
-    node_size=1000,
-    node_color="lightgreen",
-    arrows = True
-  )
-
-  # Pesos das arestas
-  labels = {
-    (u.nome, v.nome): peso_aresta(u, v, w)
-    for (u, v) in G[1]
-  }
-
-  nx.draw_networkx_edge_labels(
-    G_grafo,
-    pos,
-    edge_labels=labels
-  )
-
-  plt.get_current_fig_manager().set_window_title(nome)
-
-# Mostra grafo direcionado, pesos e d dos vértices
-def mostraGrafoDirecionadoPesoD(G, nome, w):
-
-  plt.figure()
-
-  G_grafo = nx.DiGraph()
-
-  G_grafo.add_nodes_from(
-    [v.nome for v in G[0]]
-  )
-
-  G_grafo.add_edges_from(
-    [(u.nome, v.nome) for (u, v) in G[1]]
-  )
-
-  pos = nx.kamada_kawai_layout(G_grafo)
-
-  # Desenha os vértices e as arestas
-  nx.draw(
-    G_grafo,
-    pos,
-    with_labels=False,
-    node_size=1000,
-    node_color="lightgreen",
-    arrows=True
-  )
-
-  # Nome e valor de d dos vértices
-  labels_vertices = {
-    v.nome: f"{v.nome}\n(d={v.d})"
-    for v in G[0]
-  }
-
-  nx.draw_networkx_labels(
-    G_grafo,
-    pos,
-    labels=labels_vertices
-  )
-
-  # Pesos das arestas
-  labels_arestas = {
-    (u.nome, v.nome): peso_aresta(u, v, w)
-    for (u, v) in G[1]
-  }
-
-  nx.draw_networkx_edge_labels(
-    G_grafo,
-    pos,
-    edge_labels=labels_arestas
-  )
-
-  plt.get_current_fig_manager().set_window_title(nome)
-
-  plt.show()
 
 # Inicia todos os vértices
 def Initialize_Single_Source(G, s):

@@ -3,8 +3,9 @@ Algoritmo que encontra as componentes fortementes conexas de um grafo direcionad
 Cria uma floresta na qual cada árvore é uma CFC (Componente fortemente conexa)
 """
 
-from Cap_3_dfs import Vertice, mostraGrafo, DFS as DFS_sem_pilha, florestaDeProfundidade
+from Cap_3_dfs import Vertice, DFS as DFS_sem_pilha
 import matplotlib.pyplot as plt
+from auxiliares import mostraGrafo, florestaDeProfundidade
 
 def DFS(G, adj):
   global tempo

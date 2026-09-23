@@ -2,8 +2,8 @@
 Implementação do algoritmo de busca em profundidade (DFS) em um grafo direcionado
 """
 
-import networkx as nx
 import matplotlib.pyplot as plt
+from auxiliares import mostraGrafo, florestaDeProfundidade
 
 # Define um vértice
 class Vertice:
@@ -49,39 +49,6 @@ def DFSvisit(G, u, adj):
   tempo += 1
   u.f = tempo
   u.cor = "black"
-
-# Cria a floresta do grafo
-def florestaDeProfundidade(G):
-  arvore = (G[0], [])
-  for v in G[0]:
-    if v.pai:
-      arvore[1].append((v.pai, v))
-  return arvore
-
-# Usa networkx e matplotlib para mostrar a árvore
-def mostraGrafo(G, nome):
-  plt.figure()
-  
-  G_grafo = nx.DiGraph()
-
-  G_grafo.add_nodes_from(
-    [v.nome for v in G[0]]
-  )
-  
-  G_grafo.add_edges_from(
-    [(u.nome, v.nome) for (u, v) in G[1]]
-  )
-  pos = nx.spring_layout(G_grafo, k=0.5)
-
-  nx.draw(
-    G_grafo,
-    pos,
-    with_labels=True,
-    node_size=1000,
-    node_color="lightgreen",
-    arrows=True
-  )
-  plt.get_current_fig_manager().set_window_title(nome)
 
 # Main
 def main(): 
