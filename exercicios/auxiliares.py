@@ -194,6 +194,17 @@ def florestaDeProfundidade(G):
       arvore[1].append((v.pai, v))
   return arvore
 
+# Printa o menor caminho entre dois vértices a partir da matriz de predecessores
+def caminho_mais_curto(Pai, i, j):
+  if i == j:
+    print(i)
+  elif Pai[i][j] == None:
+    print("Não existe caminho")
+    return
+  else: 
+    caminho_mais_curto(Pai, i, Pai[i][j])
+    print(j)
+
 # Pega o peso de uma aresta
 def peso_aresta(u, v, w):
   if (u, v) in w:
