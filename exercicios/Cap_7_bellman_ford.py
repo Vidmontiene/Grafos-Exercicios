@@ -38,7 +38,7 @@ def Initialize_Single_Source(G, s):
   s.d = 0
 
 # Verifica numa aresta (u, v), se o menor caminho por essa aresta é menor que o caminho que v guarda atualmente
-# Se sim, (u, v) passa a ser o novo caminho
+# Se sim, (u, v) passa a ser o novo caminho e u vira pai de v
 def relax(u, v, w):
   if v.d > (novo := u.d + peso_aresta(u, v, w)):
     v.d = novo
