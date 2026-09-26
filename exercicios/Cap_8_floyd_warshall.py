@@ -116,7 +116,7 @@ def main():
   print(tabulate(D, tablefmt="fancy_grid"))
   print('-=' * 50)
   print("Pai de j no caminho até i: ")
-  print(tabulate(P, tablefmt="fancy_grid", headers="Teste"))
+  print(tabulate(P, tablefmt="fancy_grid"))
 
   # Perguntas de menor caminho
   while True: 

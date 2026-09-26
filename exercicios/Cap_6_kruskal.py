@@ -7,7 +7,7 @@ Para essa árvore ser mínima, ela deve ainda ter a menor soma possível dos pes
 """
 
 import matplotlib.pyplot as plt
-from auxiliares import mostraGrafoNaoDirecionadoPeso
+from auxiliares import mostraGrafoNaoDirecionadoPeso, peso_aresta
 
 # Define um vértice
 class Vertice:
@@ -79,15 +79,9 @@ def AGM_Kruskal(G, w):
     if find_set(u) !=  find_set(v): # Se estão em componentes diferentes...
       A.append((u, v))              # ... pegar essa aresta
       union(u, v)                   # ... Unir na mesma componente
-      peso += w[(u, v)]
+      peso += peso_aresta(u, v, w)
 
   return A, peso
-
-# Pega o peso de uma aresta. Essa função não é necessária no pseudocódigo
-def peso_aresta(u, v, w):
-  if (u, v) in w:
-    return w[(u, v)]
-  return w[(v, u)]
 
 def main():
   a = Vertice('a')
