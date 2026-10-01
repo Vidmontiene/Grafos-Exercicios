@@ -184,8 +184,6 @@ def mostraGrafoDirecionadoPesoD(G, nome, w):
 
   plt.get_current_fig_manager().set_window_title(nome)
 
-  plt.show()
-
 # Cria a floresta do grafo
 def florestaDeProfundidade(G):
   arvore = (G[0], [])
