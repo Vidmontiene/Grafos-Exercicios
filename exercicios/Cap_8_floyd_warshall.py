@@ -27,7 +27,7 @@ class Vertice:
 # A diagonal e as arestas que não existem são nulas
 # O restante é i 
 def inicia_P(n, W):
-  P = [[None for _ in range(5)] for _ in range(5)]
+  P = [[None for _ in range(n)] for _ in range(n)]
   for i in range(n):
     for j in range(n):
       if i == j or W[i][j] == float('inf'): 

@@ -3,7 +3,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
-# Mostrar grafo não direcionado sem pesos
+# Mostrar grafo direcionado sem pesos
 def mostraGrafo(G, nome):
   plt.figure()
   
@@ -28,7 +28,7 @@ def mostraGrafo(G, nome):
   )
   plt.get_current_fig_manager().set_window_title(nome)
 
-# Mostrar grafo direcionado sem pesos
+# Mostrar grafo não direcionado sem pesos
 def mostraGrafoNaoDirecionado(G, nome):
   plt.figure()
 
