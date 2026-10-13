@@ -203,6 +203,46 @@ def caminho_mais_curto(Pai, i, j):
     caminho_mais_curto(Pai, i, Pai[i][j])
     print(j)
 
+# Mostra um grafo de fluxo
+def mostraGrafoFluxo(G, nome):
+
+  plt.figure()
+  G_grafo = nx.DiGraph()
+
+  G_grafo.add_nodes_from(
+    [v.nome for v in G[0]]
+  )
+
+  G_grafo.add_edges_from(
+    [(a.aresta[0].nome, a.aresta[1].nome) for a in G[1]]
+  )
+
+  pos = nx.kamada_kawai_layout(G_grafo)
+
+  nx.draw(
+    G_grafo,
+    pos,
+    with_labels=True,
+    node_size=1000,
+    node_color="lightgreen",
+    arrows=True
+  )
+
+  # Mostra fluxo / capacidade
+  labels = {
+    (a.aresta[0].nome, a.aresta[1].nome):
+      f"{a.f}/{a.capacidade}"
+    for a in G[1]
+  }
+
+  nx.draw_networkx_edge_labels(
+    G_grafo,
+    pos,
+    edge_labels=labels
+  )
+
+  plt.get_current_fig_manager().set_window_title(nome)
+  
 # Pega o peso de uma aresta
 def peso_aresta(u, v, w):
   if (u, v) in w:
