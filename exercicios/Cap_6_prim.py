@@ -6,7 +6,7 @@ Uma árvore geradora de um grafo G contém todos os vértices de G e um subconju
 Para essa árvore ser mínima, ela deve ainda ter a menor soma possível dos pesos de suas arestas.
 """
 
-from auxiliares import mostraGrafoNaoDirecionadoPeso
+from auxiliares import mostraGrafoNaoDirecionadoPeso, peso_aresta
 import matplotlib.pyplot as plt
 
 # Define um vértice
@@ -29,12 +29,6 @@ class Vertice:
     Nome do vértice: {self.nome}
     Vértice pai: {pai}
     Rank: {self.rank}"""
-
-# Pega o peso de uma aresta. Essa função não é necessária no pseudocódigo
-def peso_aresta(u, v, w):
-  if (u, v) in w:
-    return w[(u, v)]
-  return w[(v, u)]
 
 def AGM_Prim(G, adj, w, r):
   r.key = 0

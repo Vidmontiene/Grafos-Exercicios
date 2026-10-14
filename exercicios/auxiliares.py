@@ -248,3 +248,30 @@ def peso_aresta(u, v, w):
   if (u, v) in w:
     return w[(u, v)]
   return w[(v, u)]
+
+# Verifica se uma aresta está no grafo
+def encontrar_aresta(G, u, v):
+
+  for aresta in G[1]:
+    v1, v2 = aresta.aresta
+    if v1 == u and v2 == v:
+      return aresta
+    
+  return None
+
+# Indica o quanto de fluxo ainda pode ser enviado por uma aresta 
+def capacidade_residual(G, u, v):
+
+  # Verifica se é uma aresta original
+  aresta = encontrar_aresta(G, u, v)
+
+  if aresta is not None:
+    return aresta.capacidade - aresta.f
+
+  # Caso contrário, é uma aresta reversa
+  aresta = encontrar_aresta(G, v, u)
+
+  if aresta is not None:
+    return aresta.f
+
+  return 0

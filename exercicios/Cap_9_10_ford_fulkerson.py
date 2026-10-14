@@ -20,7 +20,7 @@ um fluxo máximo da rede.
 """
 
 from Cap_3_dfs import DFS
-from auxiliares import mostraGrafoFluxo
+from auxiliares import mostraGrafoFluxo, encontrar_aresta, capacidade_residual
 import matplotlib.pyplot as plt
 
 # Define um vértice
@@ -56,33 +56,6 @@ class Aresta:
     self.aresta = (v1, v2)
     self.capacidade = capacidade
     self.f = 0
-
-# Verifica se uma aresta está no grafo
-def encontrar_aresta(G, u, v):
-
-  for aresta in G[1]:
-    v1, v2 = aresta.aresta
-    if v1 == u and v2 == v:
-      return aresta
-    
-  return None
-
-# Indica o quanto de fluxo ainda pode ser enviado por uma aresta 
-def capacidade_residual(G, u, v):
-
-  # Verifica se é uma aresta original
-  aresta = encontrar_aresta(G, u, v)
-
-  if aresta is not None:
-    return aresta.capacidade - aresta.f
-
-  # Caso contrário, é uma aresta reversa
-  aresta = encontrar_aresta(G, v, u)
-
-  if aresta is not None:
-    return aresta.f
-
-  return 0
 
 # Encontra um caminho da fonte até o destino na rede residual usando DFS
 def encontrar_caminho_residual(G, s, t):
@@ -210,10 +183,9 @@ def main():
   print(f"\nFluxo máximo: {fluxo_maximo}")
 
   # Grafo com os fluxos calculados
-  mostraGrafoFluxo(G, "Fluxo máximo")
+  mostraGrafoFluxo(G, f"Fluxo máximo {fluxo_maximo}")
 
   plt.show()
-
 
 if __name__ == "__main__":
   main()
