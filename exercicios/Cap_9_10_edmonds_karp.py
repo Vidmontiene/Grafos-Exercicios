@@ -7,7 +7,7 @@ O processo se repete até que não exista mais um caminho aumentante entre a ori
 """
 
 from Cap_2_bfs import BFS
-from auxiliares import mostraGrafoFluxo, encontrar_aresta, capacidade_residual
+from auxiliares import mostraGrafoFluxo, encontrar_aresta, cria_capacidade_residual, cria_grafo_residual, encontra_caminho
 import matplotlib.pyplot as plt
 
 # Define um vértice
@@ -42,85 +42,36 @@ class Aresta:
     self.capacidade = capacidade
     self.f = 0
 
-# Cria grafo residual e sua lista de adjacência e reseta vertices
-def cria_grafo_residual(G):
-  Gf = (G[0], [])
-
-  for v in G[0]:
-    v.cor = 'white'
-    v.pai = None
-    v.d = float('inf')
-
-  # Cria a lista de adjacência da rede residual
-  adj_residual = {v: [] for v in G[0]}
-
-  for aresta in G[1]:
-    u, v = aresta.aresta
-
-    # Aresta original
-    if aresta.capacidade - aresta.f > 0:
-      adj_residual[u].append(v)
-      Gf[1].append((u, v))
-
-    # Aresta reversa
-    if aresta.f > 0:
-      adj_residual[v].append(u)
-      Gf[1].append((v, u))
-
-  return Gf, adj_residual
-
-# Retorna caminho de s a t
-def encontra_caminho(s, t):
-  # Reconstrói o caminho
-  caminho = []
-  atual = t
-
-  while atual != s:
-
-    anterior = atual.pai
-
-    # Evita reconstruir um caminho inválido
-    if anterior is None:
-      return None
-
-    caminho.append((anterior, atual))
-    atual = anterior
-
-  caminho.reverse()
-  return caminho
-
+# Edmonds Karp - Utiliza BFS
 def Edmonds_Karp(G, s, t):
+
+  # Inicia arestas
   for aresta in G[1]:
     aresta.f = 0
 
-  Gf, adj_residual = cria_grafo_residual(G)
-  BFS(Gf, s, adj_residual)
+  while True:
 
-  while t.pai != None:
+    # Encontra um caminho de s até t na rede residual
+    cf = cria_capacidade_residual(G)
+    Gf, adj_residual = cria_grafo_residual(G, cf)
+    BFS(Gf, s, adj_residual)
     caminho = encontra_caminho(s, t)
 
     if caminho is None:
-      break
+      break # Não há caminho aumentante
 
     # Pega o menor fluxo que pode ser enviado no caminho
-    cf = min(
-      capacidade_residual(G, u, v)
-      for (u, v) in caminho
-    )
+    menor_cf = min(cf[(u, v)] for (u, v) in caminho)
 
     for (u, v) in caminho:
 
       # Se (u, v) é uma aresta do grafo...
       aresta = encontrar_aresta(G, u, v)
       if aresta is not None:
-        aresta.f += cf
+        aresta.f += menor_cf
       else:
         aresta = encontrar_aresta(G, v, u)
-        aresta.f -= cf
-
-    Gf, adj_residual = cria_grafo_residual(G)
-    BFS(Gf, s, adj_residual)
-
+        aresta.f -= menor_cf
   return G
 
 def main():

@@ -20,7 +20,7 @@ um fluxo máximo da rede.
 """
 
 from Cap_3_dfs import DFS
-from auxiliares import mostraGrafoFluxo, encontrar_aresta, capacidade_residual
+from auxiliares import mostraGrafoFluxo, encontrar_aresta, cria_capacidade_residual, cria_grafo_residual, encontra_caminho
 import matplotlib.pyplot as plt
 
 # Define um vértice
@@ -57,54 +57,7 @@ class Aresta:
     self.capacidade = capacidade
     self.f = 0
 
-# Encontra um caminho da fonte até o destino na rede residual usando DFS
-def encontrar_caminho_residual(G, s, t):
-
-  # Cria a lista de adjacência da rede residual
-  adj_residual = {v: [] for v in G[0]}
-
-  for aresta in G[1]:
-    u, v = aresta.aresta
-
-    # Aresta original
-    if aresta.capacidade - aresta.f > 0:
-      adj_residual[u].append(v)
-
-    # Aresta reversa
-    if aresta.f > 0:
-      adj_residual[v].append(u)
-
-  # Reinicia informações da DFS
-  for v in G[0]:
-    v.cor = "white"
-    v.pai = None
-
-  # Executa a DFS
-  DFS(G, adj_residual)
-
-  # Se t não foi alcançado
-  if t.cor == "white":
-    return None
-
-  # Reconstrói o caminho
-  caminho = []
-  atual = t
-
-  while atual != s:
-
-    anterior = atual.pai
-
-    # Evita reconstruir um caminho inválido
-    if anterior is None:
-      return None
-
-    caminho.append((anterior, atual))
-    atual = anterior
-
-  caminho.reverse()
-  return caminho
-
-# Algoritmo de ford_fulkerson
+# Ford Fulkerson - Utiliza DFS
 def ford_fulkerson(G, s, t):
 
   # Inicia arestas
@@ -114,26 +67,26 @@ def ford_fulkerson(G, s, t):
   while True:
 
     # Encontra um caminho de s até t na rede residual
-    caminho = encontrar_caminho_residual(G, s, t)
+    cf = cria_capacidade_residual(G)
+    Gf, adj_residual = cria_grafo_residual(G, cf)
+    DFS(Gf, adj_residual)
+    caminho = encontra_caminho(s, t)
 
     if caminho is None:
-      break
+      break # Não há caminho aumentante
 
     # Pega o menor fluxo que pode ser enviado no caminho
-    cf = min(
-      capacidade_residual(G, u, v)
-      for (u, v) in caminho
-    )
-
+    menor_cf = min(cf[(u, v)] for (u, v) in caminho)
+    
     for (u, v) in caminho:
 
       # Se (u, v) é uma aresta do grafo...
       aresta = encontrar_aresta(G, u, v)
       if aresta is not None:
-        aresta.f += cf
+        aresta.f += menor_cf
       else:
         aresta = encontrar_aresta(G, v, u)
-        aresta.f -= cf
+        aresta.f -= menor_cf
   return G
 
 def main():
@@ -189,3 +142,4 @@ def main():
 
 if __name__ == "__main__":
   main()
+  

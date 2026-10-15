@@ -259,19 +259,60 @@ def encontrar_aresta(G, u, v):
     
   return None
 
-# Indica o quanto de fluxo ainda pode ser enviado por uma aresta 
-def capacidade_residual(G, u, v):
+# Cria o dicionário de capacidade residual
+def cria_capacidade_residual(G):
+  cf = {}
+  for u in G[0]:
+    for v in G[0]:
+      cf[(u, v)] = 0
 
-  # Verifica se é uma aresta original
-  aresta = encontrar_aresta(G, u, v)
+      aresta = encontrar_aresta(G, u, v)
+      if aresta:
+        cf[(u, v)] = aresta.capacidade - aresta.f
 
-  if aresta is not None:
-    return aresta.capacidade - aresta.f
+      else:
+        aresta_reversa = encontrar_aresta(G, v, u)
+        if aresta_reversa:
+          cf[(u, v)] = aresta_reversa.f  
+  return cf
 
-  # Caso contrário, é uma aresta reversa
-  aresta = encontrar_aresta(G, v, u)
+# Cria grafo residual e sua lista de adjacência e reseta vertices
+def cria_grafo_residual(G, cf):
+  Gf = (G[0], [])
 
-  if aresta is not None:
-    return aresta.f
+  # Reseta vértices
+  for v in G[0]:
+    v.cor = 'white'
+    v.pai = None
+    v.d = float('inf')
 
-  return 0
+  # Cria a lista de adjacência da rede residual
+  adj_residual = {v: [] for v in G[0]}
+
+  for aresta, cap in cf.items():
+    u, v = aresta
+    if cap > 0:
+      adj_residual[u].append(v)
+      Gf[1].append((u, v))
+
+  return Gf, adj_residual
+
+# Retorna caminho de s a t
+def encontra_caminho(s, t):
+  # Reconstrói o caminho
+  caminho = []
+  atual = t
+
+  while atual != s:
+
+    anterior = atual.pai
+
+    # Evita reconstruir um caminho inválido
+    if anterior is None:
+      return None
+
+    caminho.append((anterior, atual))
+    atual = anterior
+
+  caminho.reverse()
+  return caminho
