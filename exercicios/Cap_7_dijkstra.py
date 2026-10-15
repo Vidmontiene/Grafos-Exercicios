@@ -6,7 +6,7 @@ Esse algoritmo exige pesos não negativos, ou seja, não pode conter arestas de 
 """
 
 import matplotlib.pyplot as plt
-from auxiliares import mostraGrafoDirecionadoPeso, mostraGrafoDirecionadoPesoD, peso_aresta, florestaDeProfundidade
+from auxiliares import mostraGrafoDirecionadoPeso, mostraGrafoDirecionadoPesoD, florestaDeProfundidade
 from Cap_7_bellman_ford import relax, Initialize_Single_Source
 
 # Define um vértice

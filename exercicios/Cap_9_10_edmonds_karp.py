@@ -99,6 +99,9 @@ def Edmonds_Karp(G, s, t):
   while t.pai != None:
     caminho = encontra_caminho(s, t)
 
+    if caminho is None:
+      break
+
     # Pega o menor fluxo que pode ser enviado no caminho
     cf = min(
       capacidade_residual(G, u, v)

@@ -6,7 +6,7 @@ Esse algoritmo exige grafos acícilicos e direcionados, para que a ordenação t
 
 import matplotlib.pyplot as plt
 from Cap_7_bellman_ford import relax, Initialize_Single_Source
-from auxiliares import mostraGrafoDirecionadoPeso, mostraGrafoDirecionadoPesoD, peso_aresta, florestaDeProfundidade
+from auxiliares import mostraGrafoDirecionadoPeso, mostraGrafoDirecionadoPesoD, florestaDeProfundidade
 from Cap_4_ordenacao_topologica import Vertice
 import Cap_4_ordenacao_topologica as dfs
 

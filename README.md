@@ -3,7 +3,7 @@ Exercícios feitos na disciplina de Otimização em Grafos
 
 Para instalar bibliotecas necessárias:
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ## 👩‍💻 Autora

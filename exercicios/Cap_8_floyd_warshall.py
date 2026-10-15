@@ -74,7 +74,7 @@ def main():
   V = (zero, um, dois, tres, quatro)
 
   # Arestas
-  E = ( (zero, um), (zero, dois), (zero, quatro), (um, tres), (um, quatro), (dois, um), (tres, zero), (tres, dois), (quatro, tres))
+  E = ((zero, um), (zero, dois), (zero, quatro), (um, tres), (um, quatro), (dois, um), (tres, zero), (tres, dois), (quatro, tres))
 
   G = (V, E)
 
